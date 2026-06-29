@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINLEY BANKS</title>
+    <link rel="icon" href="img/about/Untitled-5.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+    <a href="about.html" class="header_wrapper">
+        <img src="img/about/signature.png" alt="Finley Banks" class="header-logo">
+        DESIGNER & PHOTOGRAPHER<br>
+        PARSONS COMMUNICATION DESIGN <br>
+        NEW YORK CITY <br>
+    </a>
+</header>
+
+<div class="preview-wrap" id="previewWrap" aria-hidden="true">
+    <button class="slideshow-arrow slideshow-arrow--prev" id="slidePrev">&#8592;</button>
+    <div class="preview-media" id="previewMedia"></div>
+    <button class="slideshow-arrow slideshow-arrow--next" id="slideNext">&#8594;</button>
+</div>
+
+<!-- Project list panel -->
+<nav class="app" id="appNav" aria-label="Projects">
+
+    <a class="project" href="project.html?id=bureau-betak"
+       data-images="img/the-locale-creator/start.jpg , img/the-locale-creator/1.jpg,img/the-locale-creator/2.jpg,img/the-locale-creator/3.jpg"
+       data-colors="#CEC5B4,#B4BECE,#BCCEB4"
+       data-name="The Locale Creator"
+       data-type="Editorial Design"
+       data-year="2026"
+       data-context="Independent"
+       data-description="A campus magazine that connects students through all mediums of creativity.">
+        <strong class="project_title">The Locale Creator</strong>
+        <p>Editorial Design <em>2026</em></p>
+        <p>Independent</p>
+    </a>
+
+    <a class="project" href="project.html?id=edition-studio"
+       data-images="img/those-who-faught-for-you/1.jpg,img/those-who-faught-for-you/2.jpg,img/those-who-faught-for-you/3.jpg"
+       data-colors="#E0D8CC,#CCD4E0,#E0CCD4"
+       data-name="Those Who Faught For You When You Weren't There"
+       data-type="Editorial Design"
+       data-year="2025"
+       data-context="Typography 1"
+       data-description="A typographic focused book exploring feminism, history, and the voices of those often left unheard.">
+        <strong class="project_title">Those Who Faught For You When You Weren't There</strong>
+        <p>Editorial Design <em>2025</em></p>
+        <p>Typography 1</p>
+    </a>
+
+    <a class="project" href="project.html?id=in-practice-studio"
+       data-images="img/brooklyn-botanical-garden/start.jpg,img/brooklyn-botanical-garden/2.jpg , img/brooklyn-botanical-garden/3.jpg , img/brooklyn-botanical-garden/4.jpg , img/brooklyn-botanical-garden/5.jpg, img/brooklyn-botanical-garden/6.jpg, img/brooklyn-botanical-garden/7.jpg, img/brooklyn-botanical-garden/8.jpg , img/brooklyn-botanical-garden/9.jpg , img/brooklyn-botanical-garden/10.jpg"
+       data-colors="#D4E0CC,#CCE0DC,#E0DCC8"
+       data-name="Brooklyn Botanical Garden"
+       data-type="Brand Redesign"
+       data-year="2026"
+       data-context="Typography 2"
+       data-description="A flexible brand identity redesign for the Brooklyn Botanical Garden, rooted in nature and contemporary type.">
+        <strong class="project_title">Brooklyn Botanical Garden</strong>
+        <p>Brand Redesign <em>2026</em></p>
+        <p>Typography 2</p>
+    </a>
+
+    <a class="project" href="project.html?id=eva-robarts"
+       data-videos="img/the-climate-calculator/start.jpg,img/the-climate-calculator/1.mov,img/the-climate-calculator/2.mov"
+       data-colors="#E0CCD8,#CCE0D8,#E0D8CC"
+       data-name="The Climate Calculator"
+       data-type="Web Design"
+       data-year="2026"
+       data-context="Interaction Design 2"
+       data-description="An interactive web tool that makes the personal impact of climate change visible and tangible.">
+        <strong class="project_title">The Climate Calculator</strong>
+        <p>Web Design <em>2026</em></p>
+        <p>Interaction Design 2</p>
+    </a>
+
+    <a class="project" href="project.html?id=anne-sophie-barlet"
+       data-images="img/gaze/start.jpg , img/gaze/1.jpg,img/gaze/2.jpg,img/gaze/3.jpg"
+       data-colors="#CCCCE0,#E0D4C4,#C4E0CC"
+       data-name="GAZE"
+       data-type="Editorial Design"
+       data-year="2024"
+       data-context="Independent"
+       data-description="An independent editorial publication exploring the male gaze's effect on young women.">
+        <strong class="project_title">GAZE</strong>
+        <p>Editorial Design <em>2024</em></p>
+        <p>Independent</p>
+    </a>
+
+    <a class="project" href="project.html?id=giu-giu"
+       data-images="img/photo-works/1.jpg,img/photo-works/2.jpg,img/photo-works/3.jpg"
+       data-colors="#E0C4B0,#B0C4E0,#C4E0B0"
+       data-name="Photo Works"
+       data-type="Digital & Analog"
+       data-year="2023–2026"
+       data-context="Independent"
+       data-description="An ongoing series of digital, analog, and gelatin silver print photographs taken across New York City and beyond.">
+        <strong class="project_title">Photo Works</strong>
+        <p>Digital & Analog <em>2023–2026</em></p>
+        <p>Independent</p>
+    </a>
+
+</nav>
+
+<!-- Project detail panel (replaces nav on click) -->
+<div class="app-detail" id="appDetail" aria-hidden="true">
+    <button class="detail-back" id="detailBack">&#8592; back</button>
+    <div class="detail-info" id="detailInfo"></div>
+</div>
+
+<script>
+(function () {
+    var wrap       = document.getElementById('previewWrap');
+    var media      = document.getElementById('previewMedia');
+    var appNav     = document.getElementById('appNav');
+    var appDetail  = document.getElementById('appDetail');
+    var detailBack = document.getElementById('detailBack');
+    var detailInfo = document.getElementById('detailInfo');
+
+    var isLocked = false;
+    var slides   = [];
+    var current  = 0;
+
+    var slidePrev = document.getElementById('slidePrev');
+    var slideNext = document.getElementById('slideNext');
+
+    /* ── Slide navigation ──────────────────────────────────── */
+
+    function goTo(index) {
+        var prev = slides[current];
+        var prevVideo = prev.querySelector('video');
+        if (prevVideo) prevVideo.pause();
+        prev.classList.remove('is-active');
+
+        current = (index + slides.length) % slides.length;
+
+        var next = slides[current];
+        next.classList.add('is-active');
+        var nextVideo = next.querySelector('video');
+        if (nextVideo) { nextVideo.currentTime = 0; nextVideo.play(); }
+    }
+
+    /* ── Build slides ──────────────────────────────────────── */
+
+    function buildSlides(el) {
+        media.innerHTML = '';
+        slides = [];
+        current = 0;
+
+        var videos = el.dataset.videos ? el.dataset.videos.split(',') : [];
+        var imgs   = el.dataset.images ? el.dataset.images.split(',') : [];
+
+        var srcs = videos.length ? videos : imgs;
+        srcs.forEach(function (src) {
+            src = src.trim();
+            var slide = document.createElement('div');
+            slide.className = 'preview-slide';
+            if (/\.(mp4|mov|webm)$/i.test(src)) {
+                var v = document.createElement('video');
+                v.src = src; v.muted = true; v.loop = true; v.playsInline = true;
+                slide.appendChild(v);
+            } else {
+                var img = document.createElement('img');
+                img.src = src; img.alt = '';
+                img.onerror = function () { this.style.display = 'none'; };
+                slide.appendChild(img);
+            }
+            media.appendChild(slide);
+            slides.push(slide);
+        });
+
+        if (slides.length) {
+            slides[0].classList.add('is-active');
+            var firstVideo = slides[0].querySelector('video');
+            if (firstVideo) firstVideo.play();
+        }
+    }
+
+    /* ── Hover (only when not locked) ─────────────────────── */
+
+    function showPreview(el) {
+        if (isLocked) return;
+        buildSlides(el);
+        wrap.classList.add('is-visible');
+    }
+
+    function clearPreview() {
+        if (isLocked) return;
+        wrap.classList.remove('is-visible');
+        setTimeout(function () {
+            if (!isLocked) media.innerHTML = '';
+        }, 700);
+    }
+
+    /* ── Open / close project ──────────────────────────────── */
+
+    function openProject(el) {
+        isLocked = true;
+        appNav.removeEventListener('mouseleave', clearPreview);
+
+        buildSlides(el);
+        wrap.classList.add('is-visible');
+        wrap.classList.add('is-locked');
+
+        var d = el.dataset;
+        detailInfo.innerHTML =
+            '<p class="detail-name">' + (d.name || '') + '</p>' +
+            (d.description ? '<p class="detail-desc">' + d.description + '</p>' : '') +
+            '<p class="detail-meta">' + (d.type || '') + ' <em>' + (d.year || '') + '</em></p>' +
+            '<p class="detail-meta">' + (d.context || '') + '</p>';
+
+        appNav.classList.add('is-hidden');
+        appDetail.classList.add('is-visible');
+        appDetail.removeAttribute('aria-hidden');
+    }
+
+    function closeProject() {
+        isLocked = false;
+
+        wrap.classList.remove('is-visible');
+        wrap.classList.remove('is-locked');
+        setTimeout(function () {
+            if (!isLocked) media.innerHTML = '';
+        }, 700);
+
+        appNav.classList.remove('is-hidden');
+        appDetail.classList.remove('is-visible');
+        appDetail.setAttribute('aria-hidden', 'true');
+        appNav.addEventListener('mouseleave', clearPreview);
+    }
+
+    /* ── Event listeners ───────────────────────────────────── */
+
+    document.querySelectorAll('.project').forEach(function (p) {
+        p.addEventListener('mouseenter', function () { showPreview(p); });
+        p.addEventListener('click', function (e) {
+            e.preventDefault();
+            openProject(p);
+        });
+    });
+
+    appNav.addEventListener('mouseleave', clearPreview);
+
+    slidePrev.addEventListener('click', function () { goTo(current - 1); });
+    slideNext.addEventListener('click', function () { goTo(current + 1); });
+    detailBack.addEventListener('click', closeProject);
+}());
+</script>
+
+</body>
+</html>
